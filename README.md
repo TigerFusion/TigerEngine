@@ -1,7 +1,7 @@
 ## Tiger Engine
 Creates object oriented C code and converts it to a JSON file
 
-#The top three reasons to use the Tiger Engine
+# The top three reasons to use the Tiger Engine
 
 1. It is designed to be cross-platform and is written entirely in C.
 2. Generating a JSON file is native (The engine’s objects are all designed around the JSON format).
