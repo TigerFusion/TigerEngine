@@ -14,7 +14,7 @@ Creates object oriented C code and converts it to a JSON file
 * The engine’s source code should compile on any IDE that supports the C99 specification.
 * Makes copies of each object so there are no confusing pointer counts.
 * Uses stacks so you can push and pop objects in batches or not at all.
-* Create an array of variables without specifying how many will be in the array at compile time.
+* Create an array of variables without specifying how many there will be at compile time.
 * Reads and writes JSON files or generic ASCII text files.
 * It is open source so if you need a new function you can request it or make your own.
 * Uses the MIT source code license so you can use it with any type of project.
