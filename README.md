@@ -1,13 +1,13 @@
-## Tiger Engine
+# Tiger Engine
 Creates object oriented C code and converts it to a JSON file
 
-# The top three reasons to use the Tiger Engine
+## The top three reasons to use the Tiger Engine
 
 1. It is designed to be cross-platform and is written entirely in C.
 2. Generating a JSON file is native (The engine’s objects are all designed around the JSON format).
 3. The engine is object oriented but never exposes the malloc() and free() functions.
 
-# What is the Tiger Engine and who is it for?
+## What is the Tiger Engine and who is it for?
 
 * It is designed to extend and replace methods that do not work in Apple’s Cocoa API.
 * Anyone using Cocoa in Objective-C or Swift should pick it up quickly.
@@ -19,7 +19,7 @@ Creates object oriented C code and converts it to a JSON file
 * It is open source so if you need a new function you can request it or make your own.
 * Uses the MIT source code license so you can use it with any type of project.
 
-# Here’s a “Hello World” snippet of code
+## Here’s a “Hello World” snippet of code
 
 ```c
 TIGStringStartStack(NULL);
