@@ -27,8 +27,8 @@ TIGStringStartStack(NULL);
 	printf(“%s\n”, TIGStringOutput(theString));
 TIGStringEndStack(NULL);
 ```
-Check out the main.c file for a list of functions with comprehensive examples.
+Check out the main.c file for a list of functions with comprehensive examples. Also make sure to comment out #define TIG_DEBUG in the TigerEngine.h when deploying an application.
 
-Also check out our website at: www.solarfusionsoftware.com
+Check out our website at: www.solarfusionsoftware.com
 
 If you use the Tiger Engine let us know on our website so we can let others know.
