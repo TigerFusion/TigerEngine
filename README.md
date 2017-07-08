@@ -1,3 +1,5 @@
+![Image of Tiger](images/Tiger.jpg)
+
 # Tiger Engine
 Creates object oriented C code and converts it to a JSON file
 
