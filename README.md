@@ -1,7 +1,7 @@
 ![Image of Tiger](images/Tiger.jpg)
 
 # Tiger Engine
-Creates object oriented C code and converts it to a JSON file
+Create object oriented C code that can read and write JSON files
 
 ## The top three reasons to use the Tiger Engine
 
