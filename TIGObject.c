@@ -75,7 +75,7 @@ void TIGObjectEndStack(const char *endStackString)
 			// 0 means both strings are the same
 			if (strcmp(theStringStack->stackString, endStackString) == 0)
 			{
-				theStringStack = TIGStringDestroy(theStringStack);
+				theStringStack = TIGObjectDestroy(theStringStack);
 			}
 			
 			theStringStack = theNextStack;
@@ -89,7 +89,7 @@ void TIGObjectEndStack(const char *endStackString)
 			
 			if (theNumberStack->stackNumber == stackNumber)
 			{
-				theNumberStack = TIGStringDestroy(theNumberStack);
+				theNumberStack = TIGObjectDestroy(theNumberStack);
 			}
 			
 			theNumberStack = theNextStack;
@@ -117,6 +117,10 @@ TIGValue *TIGObjectCreate(TIGValue *tigObject, TIGBool useStack)
 	{
 #ifdef TIG_DEBUG
 		printf("ERROR Function:TIGObjectCreate() Variable:tigObject Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -146,6 +150,10 @@ TIGValue *TIGObjectCreate(TIGValue *tigObject, TIGBool useStack)
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR Function:TIGObjectCreate() Variable:tigObject->stackString Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			}
 			
@@ -197,6 +205,17 @@ TIGValue *TIGObjectDestroy(TIGValue *tigObject)
 {
 	if (tigObject != NULL)
 	{
+		if (strcmp(tigObject->type, "Object") != 0)
+		{
+#ifdef TIG_DEBUG
+			printf("ERROR Function:TIGObjectDestroy() Variable:tigObject->type Equals:%s Valid:\"Object\"\n", tigObject->type);
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
+#endif
+			return tigObject;
+		}
+		
 		TIGValue *theCurrentValue = tigObject->nextLevel;
 		
 		while (theCurrentValue != NULL)
@@ -270,6 +289,9 @@ TIGValue *TIGObjectStackAddStringWithValue(TIGValue *tigObject, TIGValue *tigStr
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR Function:TIGObjectStackAddStringWithValue() Variable:tigObject Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return NULL;
 		}
@@ -287,6 +309,9 @@ TIGValue *TIGObjectStackAddStringWithValue(TIGValue *tigObject, TIGValue *tigStr
 		{
 			printf("ERROR Function:TIGObjectStackAddStringWithValue() Variable:tigObject->type Equals:%s Valid:\"Object\"\n", tigObject->type);
 		}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return tigObject;
 	}
@@ -305,6 +330,9 @@ TIGValue *TIGObjectStackAddStringWithValue(TIGValue *tigObject, TIGValue *tigStr
 			{
 				printf("ERROR Function:TIGObjectStackAddStringWithValue() Variable:tigString->type Equals:%s Valid:\"String\"\n", tigString->type);
 			}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return tigObject;
 		}
@@ -343,6 +371,9 @@ TIGValue *TIGObjectStackAddStringWithValue(TIGValue *tigObject, TIGValue *tigStr
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR1 Function:TIGObjectStackAddStringWithValue() Variable:tigNewValue Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 				return tigObject;
 			}
@@ -391,6 +422,9 @@ TIGValue *TIGObjectStackAddStringWithValue(TIGValue *tigObject, TIGValue *tigStr
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR2 Function:TIGObjectStackAddStringWithValue() Variable:tigNewValue Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 				return tigObject;
 			}
@@ -411,6 +445,9 @@ TIGValue *TIGObjectStackAddStringWithValue(TIGValue *tigObject, TIGValue *tigStr
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR3 Function:TIGObjectStackAddStringWithValue() Variable:tigNewValue Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return tigObject;
 		}
@@ -482,6 +519,9 @@ TIGValue *TIGObjectValueFromString(TIGValue *tigObject, TIGValue *tigString)
 		}
 		
 		printf("object value from string error1\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -512,13 +552,16 @@ TIGValue *TIGObjectValueFromString(TIGValue *tigObject, TIGValue *tigString)
 				}
 				else if (strcmp(theCurrentValue->nextLevel->type, "Number") == 0)
 				{
-					if (strcmp(theCurrentValue->nextLevel->string, "false") == 0)
+					if (theCurrentValue->nextLevel->string != NULL)
 					{
-						return TIGNumberBooleanInput(NULL, TIGNo);
-					}
-					else if (strcmp(theCurrentValue->nextLevel->string, "true") == 0)
-					{
-						return TIGNumberBooleanInput(NULL, TIGYes);
+						if (strcmp(theCurrentValue->nextLevel->string, "false") == 0)
+						{
+							return TIGNumberBooleanInput(NULL, TIGNo);
+						}
+						else if (strcmp(theCurrentValue->nextLevel->string, "true") == 0)
+						{
+							return TIGNumberBooleanInput(NULL, TIGYes);
+						}
 					}
 					else
 					{
@@ -546,6 +589,10 @@ TIGValue *TIGObjectValueFromString(TIGValue *tigObject, TIGValue *tigString)
 				{
 #ifdef TIG_DEBUG
 					printf("ERROR Function:TIGObjectValueFromString() Variable:theCurrentValue->nextLevel->type Equals:%s\n", theCurrentValue->nextLevel->type);
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 					return NULL;
 				}
@@ -555,6 +602,10 @@ TIGValue *TIGObjectValueFromString(TIGValue *tigObject, TIGValue *tigString)
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR Function:TIGObjectValueFromString() Variable:theCurrentValue Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return NULL;
 		}
@@ -583,6 +634,9 @@ void TIGObjectRemoveValueFromString(TIGValue *tigObject, TIGValue *tigString)
 		{
 			printf("ERROR Function:TIGObjectRemoveValueFromString() Variable:tigString->type Equals:%s Valid:\"String\"\n", tigString->type);
 		}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return;
 	}
@@ -599,6 +653,9 @@ void TIGObjectRemoveValueFromString(TIGValue *tigObject, TIGValue *tigString)
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR Function:TIGObjectRemoveValueFromString() Variable:theCurrentValue Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return;
 		}
@@ -628,6 +685,9 @@ void TIGObjectRemoveValueFromString(TIGValue *tigObject, TIGValue *tigString)
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR Function:TIGObjectRemoveValueFromString() Variable:theCurrentValue->nextLevel->type Equals:%s\n", theCurrentValue->nextLevel->type);
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 				return;
 			}
@@ -640,7 +700,7 @@ void TIGObjectRemoveValueFromString(TIGValue *tigObject, TIGValue *tigString)
 	}
 }
 
-int TIGObjectCount(TIGValue *tigObject)
+TIGInteger TIGObjectCount(TIGValue *tigObject)
 {
 	if (tigObject == NULL)
 	{
@@ -680,6 +740,9 @@ void TIGObjectRemoveAllValues(TIGValue *tigObject)
 				printf("ERROR Function:TIGObjectRemoveAllValues() Variable:tigObject->thisLevel Equals:NULL\n");
 			}
 		}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 	}
 	else
@@ -727,6 +790,9 @@ TIGValue *TIGObjectFromString(TIGValue *tigString)
 		{
 			printf("ERROR Function:TIGObjectFromString() Variable:tigString->type Equals:%s Valid:\"String\"\n", tigString->type);
 		}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -755,9 +821,9 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 	TIGBool isTIGString = TIGNo;
 	int startString = -1;
 	int endString = -1;
-	
+	int i;
 	// Start with { } then " " strings then [ ] arrays and 0 to 9 numbers
-	for (int i = startIndex; i < strlen(string); i++)
+	for (i = startIndex; i < strlen(string); i++)
 	{
 		if (string[i] == '[')
 		{
@@ -805,7 +871,7 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 	
 	if (isTIGArray)
 	{
-		for (int i = startIndex; i < strlen(string); i++)
+		for (i = startIndex; i < strlen(string); i++)
 		{
 			TIGValue *theObjectValue = TIGObjectFromStringWithIndex(tigString, i);
 			
@@ -820,6 +886,9 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 				{
 #ifdef TIG_DEBUG
 					printf("ERROR Function:TIGObjectFromStringWithIndex() Variable:string[endIndex] Equals:Missing a \"]\"\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 					return NULL;
 				}
@@ -833,7 +902,7 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 	}
 	else if (isTIGNumber)
 	{
-		for (int i = startIndex; i < strlen(string); i++)
+		for (i = startIndex; i < strlen(string); i++)
 		{
 			if (string[i] == '-' || string[i] == '.' || string[i] == '0'|| string[i] == '1' || string[i] == '2'|| string[i] == '3'
 				|| string[i] == '4' || string[i] == '5' || string[i] == '6'|| string[i] == '7' || string[i] == '8'|| string[i] == '9')
@@ -852,9 +921,10 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 				if (newString != NULL)
 				{
 					int stringIndex = 0;
+					int j;
 					//printf("start: %d end: %d\n", startString, endString);
 					
-					for (int j = startString; j <= endString; j++)
+					for (j = startString; j <= endString; j++)
 					{
 						newString[stringIndex] = string[j];
 						stringIndex++;
@@ -873,6 +943,9 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 				{
 #ifdef TIG_DEBUG
 					printf("ERROR1 Function:TIGObjectFromStringWithIndex() Variable:newString Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 					return NULL;
 				}
@@ -881,7 +954,7 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 	}
 	else if (isTIGObject)
 	{
-		for (int i = startIndex; i < strlen(string); i++)
+		for (i = startIndex; i < strlen(string); i++)
 		{
 			if (string[i] != '\\' && string[i + 1] == '"')
 			{
@@ -902,9 +975,10 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 				if (newString != NULL)
 				{
 					int stringIndex = 0;
+					int j;
 					//printf("start: %d end: %d\n", startString, endString);
 					
-					for (int j = startString; j <= endString; j++)
+					for (j = startString; j <= endString; j++)
 					{
 						newString[stringIndex] = string[j];
 						stringIndex++;
@@ -924,6 +998,9 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 				{
 #ifdef TIG_DEBUG
 					printf("ERROR2 Function:TIGObjectFromStringWithIndex() Variable:newString Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 					return NULL;
 				}
@@ -942,7 +1019,7 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 	}
 	else if (isTIGString)
 	{
-		for (int i = startIndex; i < strlen(string); i++)
+		for (i = startIndex; i < strlen(string); i++)
 		{
 			if (string[i] != '\\' && string[i + 1] == '"')
 			{
@@ -964,8 +1041,9 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 				{
 					//printf("start: %d end: %d\n", startString, endString);
 					int stringIndex = 0;
+					int j;
 					
-					for (int j = startString; j <= endString; j++)
+					for (j = startString; j <= endString; j++)
 					{
 						newString[stringIndex] = string[j];
 						stringIndex++;
@@ -983,6 +1061,9 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 				{
 #ifdef TIG_DEBUG
 					printf("ERROR3 Function:TIGObjectFromStringWithIndex() Variable:newString Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 					return NULL;
 				}
@@ -992,6 +1073,10 @@ TIGValue *TIGObjectFromStringWithIndex(TIGValue *tigString, int startIndex)
 	
 #ifdef TIG_DEBUG
 	printf("ERROR Function:TIGObjectFromStringWithIndex() Variable:tigString Equals:invalid tigString\n");
+	
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 	return NULL;
 }
@@ -1018,6 +1103,10 @@ TIGValue *TIGObjectAddValuesFromObject(TIGValue *tigOldObject, TIGValue *tigNewO
 		{
 			printf("ERROR Function:TIGObjectAddValuesFromObject() Variable:tigNewObject->type Equals:%s Valid:\"Object\"\n", tigNewObject->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -1027,8 +1116,9 @@ TIGValue *TIGObjectAddValuesFromObject(TIGValue *tigOldObject, TIGValue *tigNewO
 	TIGNumberStartStack(NULL);
 
 	TIGValue *theNewArray = TIGArrayOfObjectStrings(tigNewObject);
+	int i;
 	
-	for (int i = 0; i < TIGArrayCount(theNewArray); i++)
+	for (i = 0; i < TIGArrayCount(theNewArray); i++)
 	{
 		TIGValue *theString = TIGArrayValueAtIndex( theNewArray, i);
 		TIGValue *theValue = TIGObjectValueFromString(tigNewObject, theString);
@@ -1065,6 +1155,9 @@ TIGBool TIGObjectEqualsObject(TIGValue *tigObject1, TIGValue *tigObject2)
 		{
 			printf("ERROR Function:TIGObjectEqualsObject() Variable:tigObject2->type Equals:%s Valid:\"Object\"\n", tigObject2->type);
 		}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return TIGNo;
 	}

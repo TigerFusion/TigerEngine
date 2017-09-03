@@ -28,18 +28,19 @@ SOFTWARE.*/
 #include <string.h> // This is for the string functions like strcpy() and strcat()
 #include <stdarg.h> // This is for functions like: function(char *fmt, ...);
 #include <math.h> // For sqrt()
-//#include <float.h>
 
 // Turns the assert() error function checking on.
-//#include <assert.h>
+#include <assert.h>
 
 // Comment out TIG_DEBUG to turn off internal TIGArray, TIGNumber, TIGObject, and TIGString printf errors when publishing an application.
 #define TIG_DEBUG
+// Comment this out to turn off assert(); inside TIG_DEBUG
+//#define TIG_DEBUG_ASSERT
 
-#define TIG_BUILD_VERSION 9
+#define TIG_BUILD_VERSION 10b4
 
 #define TIG_MAJOR_VERSION 1
-#define TIG_MINOR_VERSION 0
+#define TIG_MINOR_VERSION 1
 
 typedef enum
 {
@@ -55,6 +56,8 @@ typedef enum
 #else
 	typedef float TIGScalar;
 #endif
+
+typedef int TIGInteger;
 
 struct _TIGValue
 {
@@ -86,43 +89,48 @@ typedef union
 	TIGScalar array[3];
 } TIGVector;
 
-// m (column) (row)
+// m (Row) (Column)
 // OpenGL is column major
 typedef union
 {
 	struct
 	{
-//		TIGScalar
-//			m11, m12, m13,
-//			m21, m22, m23,
-//			m31, m32, m33;
-
 		TIGScalar
-			m11, m21, m31,
-			m12, m22, m32,
-			m13, m23, m33;
+			// Row 1
+			m11, m12, m13,
+			// Row 2
+			m21, m22, m23,
+			// Row 3
+			m31, m32, m33;
+
+//		TIGScalar
+//			m11, m21, m31,
+//			m12, m22, m32,
+//			m13, m23, m33;
 	};
 	
 	TIGScalar array[9];
 } TIGMatrix3;
 
-// m (column) (row)
-// OpenGL is column major
 typedef union
 {
 	struct
 	{
-//		TIGScalar
-//			m11, m12, m13, m14,
-//			m21, m22, m23, m24,
-//			m31, m32, m33, m34,
-//			m41, m42, m43, m44;
-
 		TIGScalar
-			m11, m21, m31, m41,
-			m12, m22, m32, m42,
-			m13, m23, m33, m43,
-			m14, m24, m34, m44;
+			// Row 1
+			m11, m12, m13, m14,
+			// Row 2
+			m21, m22, m23, m24,
+			// Row 3
+			m31, m32, m33, m34,
+			// Row 4
+			m41, m42, m43, m44;
+
+//		TIGScalar
+//			m11, m21, m31, m41,
+//			m12, m22, m32, m42,
+//			m13, m23, m33, m43,
+//			m14, m24, m34, m44;
 	};
 	
 	TIGScalar array[16];

@@ -117,6 +117,10 @@ TIGValue *TIGStringCreate(TIGValue *tigString, TIGBool useStack)
 	{
 #ifdef TIG_DEBUG
 		printf("ERROR Function:TIGStringCreate() Variable:tigString Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -146,6 +150,10 @@ TIGValue *TIGStringCreate(TIGValue *tigString, TIGBool useStack)
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR Function:TIGStringCreate() Variable:tigString->stackString Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			}
 			
@@ -198,6 +206,17 @@ TIGValue *TIGStringDestroy(TIGValue *tigString)
 	// If the "tigString" pointer has already been used free it
 	if (tigString != NULL)
 	{		
+		if (strcmp(tigString->type, "String") != 0)
+		{
+#ifdef TIG_DEBUG
+			printf("ERROR Function:TIGStringDestroy() Variable:tigString->type Equals:%s Valid:\"String\"\n", tigString->type);
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
+#endif
+			return tigString;
+		}
+
 		if (tigString->string != NULL)
 		{
 			free(tigString->string);
@@ -246,6 +265,10 @@ TIGValue *TIGStringStackInput(TIGValue *tigString, const char *string, TIGBool u
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR Function:TIGStringStackInput() Variable:tigString Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return NULL;
 		}
@@ -254,6 +277,10 @@ TIGValue *TIGStringStackInput(TIGValue *tigString, const char *string, TIGBool u
 	{
 #ifdef TIG_DEBUG
 		printf("ERROR Function:TIGStringStackInput() Variable:tigString->type Equals:%s Valid:\"String\"\n", tigString->type);
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -279,6 +306,10 @@ TIGValue *TIGStringStackInput(TIGValue *tigString, const char *string, TIGBool u
 		{
 			printf("ERROR Function:TIGStringStackInput() Variable:tigString->string Equals:NULL\n");
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -311,6 +342,10 @@ char *TIGStringOutput(TIGValue *tigString)
 				printf("ERROR Function:TIGStringOutput() Variable:tigString->string Equals:%s Valid:\"String\"\n", tigString->type);
 			}
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -320,7 +355,7 @@ char *TIGStringOutput(TIGValue *tigString)
 	}
 }
 
-int TIGStringLength(TIGValue *tigString)
+TIGInteger TIGStringLength(TIGValue *tigString)
 {
 	if (tigString == NULL || tigString->string == NULL || strcmp(tigString->type, "String") != 0)
 	{
@@ -341,6 +376,10 @@ int TIGStringLength(TIGValue *tigString)
 				printf("ERROR Function:TIGStringLength() Variable:tigString->type Equals:%s Valid:\"String\"\n", tigString->type);
 			}
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return -1;
 	}
@@ -379,6 +418,10 @@ TIGValue *TIGStringInsertStringAtIndex(TIGValue *tigString1, TIGValue *tigString
 		{
 			printf("ERROR Function:TIGStringInsertStringAtIndex() Variable:index Equals:%d Valid:0 to %d\n", index, TIGStringLength(tigString1));
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -393,8 +436,9 @@ TIGValue *TIGStringInsertStringAtIndex(TIGValue *tigString1, TIGValue *tigString
 	else
 	{
 		char character[2];
+		int i;
 		
-		for (int i = 0; i < strlen(tigString1->string); i++)
+		for (i = 0; i < strlen(tigString1->string); i++)
 		{
 			character[0] = tigString1->string[i];
 			character[1] = '\0';
@@ -430,6 +474,10 @@ TIGValue *TIGStringCharacterAtIndex(TIGValue *tigString, int index)
 		{
 			printf("ERROR Function:TIGStringCharacterAtIndex() Variable:index Equals:%d Valid:0 to %d\n", index, TIGStringLength(tigString) - 1);
 		}
+	
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -452,6 +500,10 @@ void TIGStringRemoveCharacterAtIndex(TIGValue *tigString, int index)
 		{
 			printf("ERROR Function:TIGStringRemoveCharacterAtIndex() Variable:index Equals:%d Valid:0 to %d\n", index, TIGStringLength(tigString) - 1);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return;
 	}
@@ -462,8 +514,9 @@ void TIGStringRemoveCharacterAtIndex(TIGValue *tigString, int index)
 	// Since a character is being removed don't add +1 to the malloc length
 	char *newCharacters = (char *)malloc(length * sizeof(char));
 	int newIndex = 0;
+	int i;
 	
-	for (int i = 0; i < length; i++)
+	for (i = 0; i < length; i++)
 	{
 		if (index != i)
 		{
@@ -491,6 +544,10 @@ TIGValue *TIGStringFromNumber(TIGValue *tigNumber)
 		{
 			printf("ERROR Function:TIGStringFromNumber() Variable:tigNumber->type Equals:%s Valid:\"Number\"\n", tigNumber->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -503,6 +560,10 @@ TIGValue *TIGStringFromNumber(TIGValue *tigNumber)
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR Function:TIGStringFromNumber() Variable:stringBuffer Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return NULL;
 		}
@@ -542,6 +603,10 @@ TIGValue *TIGStringObjectType(TIGValue *tigObject)
 		{
 			printf("ERROR Function:TIGStringObjectType() Variable:tigObject->type Equals:NULL\n");
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -562,6 +627,10 @@ TIGValue *TIGStringAddEscapeCharacters(TIGValue *tigString)
 		{
 			printf("ERROR Function:TIGStringAddEscapeCharacters() Variable:tigString->type Equals:%s Valid:\"String\"\n", tigString->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -569,8 +638,9 @@ TIGValue *TIGStringAddEscapeCharacters(TIGValue *tigString)
 	char *string = tigString->string;
 
 	int extraCount = 0;
+	int i;
 	
-	for (int i = 0; i < strlen(string); i++)
+	for (i = 0; i < strlen(string); i++)
 	{
 		switch (string[i])
 		{
@@ -596,11 +666,15 @@ TIGValue *TIGStringAddEscapeCharacters(TIGValue *tigString)
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR Function:TIGStringAddEscapeCharacters() Variable:newString Equals:NULL\n");
+	
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return NULL;
 		}
 	
-		for (int i = 0; i < strlen(string); i++)
+		for (i = 0; i < strlen(string); i++)
 		{
 			switch (string[i])
 			{
@@ -683,14 +757,19 @@ TIGValue *TIGStringRemoveEscapeCharacters(TIGValue *tigString)
 		{
 			printf("ERROR Function:TIGStringRemoveEscapeCharacters() Variable:tigObject->type Equals:%s Valid:\"String\"\n", tigString->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
 	
 	char *string = tigString->string;
 	int extraCount = 0;
+	int i;
 	
-	for (int i = 0; i < strlen(string); i++)
+	for (i = 0; i < strlen(string); i++)
 	{
 		if (string[i] == '\\')
 		{
@@ -723,11 +802,15 @@ TIGValue *TIGStringRemoveEscapeCharacters(TIGValue *tigString)
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR Function:TIGStringRemoveEscapeCharacters() Variable:newString Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return NULL;
 		}
 	
-		for (int i = 0; i < strlen(string); i++)
+		for (i = 0; i < strlen(string); i++)
 		{
 			if (string[i] == '\\')
 			{
@@ -820,45 +903,58 @@ TIGValue *TIGStringWithFormat(TIGValue *tigString, const char *format, ...)
 	{
 #ifdef TIG_DEBUG
 		printf("ERROR Function:TIGStringWithFormat() Variable:stringBuffer Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
-	}
-
-	// Use the new length of text and add the arguments to the new string buffer
-	va_start(arguments, format);
-	vsnprintf(stringBuffer, stringLength, format, arguments);
-	va_end(arguments);
-
-	if (tigString == NULL)
-	{
-		tigString = TIGStringInput(tigString, stringBuffer);
-	}
-	else if (tigString->string != NULL && strcmp(tigString->type, "String") == 0)
-	{
-		//printf("Length: %d\n", (int)(strlen(tigString->string) + stringLength));
-		
-		// stringLength already has +1 added to it for the '\0' so adding another +1 below is not necessary
-		tigString->string = (char *)realloc(tigString->string, (strlen(tigString->string) + stringLength) * sizeof(char));
-		strcat(tigString->string, stringBuffer);
 	}
 	else
 	{
-#ifdef TIG_DEBUG
-		if (tigString->string == NULL)
-		{
-			printf("ERROR Function:TIGStringWithFormat() Variable:tigString->string Equals:NULL\n");
-		}
+		// Use the new length of text and add the arguments to the new string buffer
+		va_start(arguments, format);
+		vsnprintf(stringBuffer, stringLength, format, arguments);
+		va_end(arguments);
 		
-		if (strcmp(tigString->type, "String") != 0)
+		if (stringBuffer != NULL)
 		{
-			printf("ERROR Function:TIGStringWithFormat() Variable:tigString->type Equals:%s Valid:\"String\"\n", tigString->type);
+			if (tigString == NULL)
+			{
+				tigString = TIGStringInput(tigString, stringBuffer);
+			}
+			else if (tigString->string != NULL && strcmp(tigString->type, "String") == 0)
+			{
+				//printf("Length: %d\n", (int)(strlen(tigString->string) + stringLength));
+				
+				// stringLength already has +1 added to it for the '\0' so adding another +1 below is not necessary
+				tigString->string = (char *)realloc(tigString->string, (strlen(tigString->string) + stringLength) * sizeof(char));
+				strcat(tigString->string, stringBuffer);
+			}
 		}
-#endif
-		return NULL;
+		else
+		{
+	#ifdef TIG_DEBUG
+			if (tigString->string == NULL)
+			{
+				printf("ERROR Function:TIGStringWithFormat() Variable:tigString->string Equals:NULL\n");
+			}
+			
+			if (strcmp(tigString->type, "String") != 0)
+			{
+				printf("ERROR Function:TIGStringWithFormat() Variable:tigString->type Equals:%s Valid:\"String\"\n", tigString->type);
+			}
+
+		#ifdef TIG_DEBUG_ASSERT
+			assert(0);
+		#endif
+	#endif
+			return NULL;
+		}
+
+		free(stringBuffer);
+		stringBuffer = NULL;
 	}
-	
-	free(stringBuffer);
-	stringBuffer = NULL;
 	
 	return tigString;
 }
@@ -881,6 +977,10 @@ TIGValue *TIGStringWithAddedString(TIGValue *oldTigString, TIGValue *newTigStrin
 		{
 			printf("ERROR Function:TIGStringWithAddedString() Variable:newTigString Equals:NULL\n");
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -903,6 +1003,10 @@ TIGValue *TIGStringFromObject(TIGValue *tigObject)
 		{
 			printf("ERROR Function:TIGStringFromObject() Variable:tigObject->type Equals:%s Valid:\"Object\"\n", tigObject->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -933,6 +1037,10 @@ TIGValue *TIGStringFromObjectForNetwork(TIGValue *tigObject)
 		{
 			printf("ERROR Function:TIGStringFromObjectForNetwork() Variable:tigObject->type Equals:%s Valid:\"Object\"\n", tigObject->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -963,6 +1071,10 @@ TIGValue *TIGStringFromArray(TIGValue *tigArray)
 		{
 			printf("ERROR Function:TIGStringFromArray() Variable:tigArray->type Equals:%s Valid:\"Array\"\n", tigArray->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -993,6 +1105,10 @@ TIGValue *TIGStringFromArrayForNetwork(TIGValue *tigArray)
 		{
 			printf("ERROR Function:TIGStringFromArrayForNetwork() Variable:tigArray->type Equals:%s Valid:\"Array\"\n", tigArray->type);
 		}
+	
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -1013,6 +1129,8 @@ TIGValue *TIGStringFromArrayForNetwork(TIGValue *tigArray)
 // The JSON string outputs a TIGString but the functions below have their own stack
 TIGValue *TIGStringFromObjectWithLevel(TIGValue *tigString, TIGValue *tigValue, int level, TIGBool useEscapeCharacters)
 {
+	int i;
+	
 	if (strcmp(tigValue->type, "Array") == 0)
 	{
 		TIGValue *theTIGStringTabs = NULL;
@@ -1020,7 +1138,7 @@ TIGValue *TIGStringFromObjectWithLevel(TIGValue *tigString, TIGValue *tigValue, 
 		
 		if (useEscapeCharacters)
 		{
-			for (int i = 0; i < level; i++)
+			for (i = 0; i < level; i++)
 			{
 				theTIGStringTabs = TIGStringWithFormat(theTIGStringTabs, "\t");
 				
@@ -1037,7 +1155,7 @@ TIGValue *TIGStringFromObjectWithLevel(TIGValue *tigString, TIGValue *tigValue, 
 			tigString = TIGStringWithFormat(tigString, "[");
 		}
 		
-		for (int i = 0; i < TIGArrayCount(tigValue); i++)
+		for (i = 0; i < TIGArrayCount(tigValue); i++)
 		{
 			TIGValue *theTIGValue = TIGArrayValueAtIndex(tigValue, i);
 			
@@ -1099,7 +1217,7 @@ TIGValue *TIGStringFromObjectWithLevel(TIGValue *tigString, TIGValue *tigValue, 
 
 		if (useEscapeCharacters)
 		{
-			for (int i = 0; i < level; i++)
+			for (i = 0; i < level; i++)
 			{
 				theTIGStringTabs = TIGStringWithFormat(theTIGStringTabs, "\t");
 				
@@ -1116,7 +1234,7 @@ TIGValue *TIGStringFromObjectWithLevel(TIGValue *tigString, TIGValue *tigValue, 
 			tigString = TIGStringWithFormat(tigString, "{");
 		}
 
-		for (int i = 0; i < TIGArrayCount(theTIGArrayStrings); i++)
+		for (i = 0; i < TIGArrayCount(theTIGArrayStrings); i++)
 		{
 			TIGValue *theTIGString = TIGArrayValueAtIndex(theTIGArrayStrings, i);
 			TIGValue *theTIGValue = TIGArrayValueAtIndex(theTIGArrayValues, i);
@@ -1190,6 +1308,10 @@ void TIGStringWriteWithFilename(TIGValue *tigString, TIGValue *filenameString)
 		{
 			printf("ERROR Function:TIGStringWriteWithFilename() Variable:filenameString->type Equals:%s Valid:\"String\"\n", filenameString->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 	}
 	else
@@ -1204,6 +1326,10 @@ void TIGStringWriteWithFilename(TIGValue *tigString, TIGValue *filenameString)
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR Function:TIGStringWriteWithFilename() Variable:theFile Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		}
 		
@@ -1245,6 +1371,10 @@ TIGValue *TIGStringReadFromFilename(TIGValue *filenameString)
 	{
 #ifdef TIG_DEBUG
 		printf("ERROR Function:TIGStringReadFromFilename() Variable:theFile Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		if (buffer != NULL)
 		{
@@ -1260,6 +1390,10 @@ TIGValue *TIGStringReadFromFilename(TIGValue *filenameString)
 	{
 #ifdef TIG_DEBUG
 		printf("ERROR Function:TIGStringReadFromFilename() Variable:buffer Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		fclose(theFile);
 		return NULL;
@@ -1300,6 +1434,10 @@ TIGValue *TIGStringReadFromFilename(TIGValue *filenameString)
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR Function:TIGStringReadFromFilename() Variable:newString Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 				free(buffer);
 				buffer = NULL;
@@ -1369,13 +1507,19 @@ TIGBool TIGStringPrefix(TIGValue *tigString, TIGValue *tigStringPrefix)
 		{
 			printf("ERROR Function:TIGStringPrefix() Variable:tigStringPrefix->type Equals:%s Valid:\"String\"\n", tigStringPrefix->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return TIGNo;
 	}
 
 	if (strlen(tigString->string) > 0 && strlen(tigStringPrefix->string) > 0)
 	{
-		for (int i = 0; i < strlen(tigString->string); i++)
+		int i;
+		
+		for (i = 0; i < strlen(tigString->string); i++)
 		{
 			if (tigString->string[i] == tigStringPrefix->string[i])
 			{
@@ -1417,6 +1561,10 @@ TIGBool TIGStringSuffix(TIGValue *tigString, TIGValue *tigStringSuffix)
 		{
 			printf("ERROR Function:TIGStringSuffix() Variable:tigStringSuffix->type Equals:%s Valid:\"String\"\n", tigStringSuffix->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return TIGNo;
 	}

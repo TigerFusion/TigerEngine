@@ -117,6 +117,10 @@ TIGValue *TIGNumberCreate(TIGValue *tigNumber, TIGBool useStack)
 	{
 #ifdef TIG_DEBUG
 		printf("ERROR Function:TIGNumberCreate() Variable:tigNumber Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -146,6 +150,10 @@ TIGValue *TIGNumberCreate(TIGValue *tigNumber, TIGBool useStack)
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR Function:TIGNumberCreate() Variable:tigNumber->stackString Equals:NULL\n");
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			}
 			
@@ -199,6 +207,17 @@ TIGValue *TIGNumberDestroy(TIGValue *tigNumber)
 	// If the "tigString" pointer has already been used free it
 	if (tigNumber != NULL)
 	{		
+		if (strcmp(tigNumber->type, "Number") != 0)
+		{
+#ifdef TIG_DEBUG
+			printf("ERROR Function:TIGNumberDestroy() Variable:tigNumber->type Equals:%s Valid:\"Number\"\n", tigNumber->type);
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
+#endif
+			return tigNumber;
+		}
+
 		if (tigNumber->string != NULL)
 		{
 			if (strcmp(tigNumber->string, "false") != 0 && strcmp(tigNumber->string, "true") != 0 && strcmp(tigNumber->type, "Number") != 0)
@@ -272,6 +291,10 @@ TIGValue *TIGNumberStackInput(TIGValue *tigNumber, TIGScalar number, TIGBool use
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR Function:TIGNumberStackInput() Variable:tigNumber Equals:NULL\n");
+	
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return NULL;
 		}
@@ -280,6 +303,10 @@ TIGValue *TIGNumberStackInput(TIGValue *tigNumber, TIGScalar number, TIGBool use
 	{
 #ifdef TIG_DEBUG
 		printf("ERROR Function:TIGNumberStackInput() Variable:tigNumber->type Equals:%s Valid:\"Number\"\n", tigNumber->type);
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -305,6 +332,10 @@ TIGScalar TIGNumberOutput(TIGValue *tigNumber)
 				printf("ERROR Function:TIGNumberOutput() Variable:tigNumber->type Equals:%s Valid:\"Number\"\n", tigNumber->type);
 			}
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return -1;
 	}
@@ -331,6 +362,10 @@ TIGScalar TIGNumberFromString(TIGValue *tigString)
 		{
 			printf("ERROR Function:TIGNumberFromString() Variable:tigString->type Equals:%s Valid:\"String\"\n", tigString->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return -1;
 	}
@@ -362,6 +397,10 @@ TIGBool TIGNumberEqualsNumber(TIGValue *tigNumber1, TIGValue *tigNumber2)
 		{
 			printf("ERROR Function:TIGNumberEqualsNumber() Variable:tigNumber2->type Equals:%s Valid:\"Number\"\n", tigNumber2->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return TIGNo;
 	}

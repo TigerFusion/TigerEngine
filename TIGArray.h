@@ -45,7 +45,7 @@ TIGValue *TIGArrayStackInsertValueAtIndex(TIGValue *tigArray, TIGValue *tigValue
 TIGValue *TIGArrayValueAtIndex(TIGValue *tigArray, int tigArrayIndex);
 void TIGArrayRemoveValueAtIndex(TIGValue *tigArray, int tigArrayIndex);
 
-int TIGArrayCount(TIGValue *tigArray);
+TIGInteger TIGArrayCount(TIGValue *tigArray);
 void TIGArrayRemoveAllValues(TIGValue *tigArray);
 
 TIGValue *TIGArrayReplaceValueAtIndex(TIGValue *tigArray, TIGValue *tigValue, int tigArrayIndex);

@@ -44,7 +44,7 @@ TIGValue *TIGObjectStackAddStringWithValue(TIGValue *tigObject, TIGValue *tigStr
 TIGValue *TIGObjectValueFromString(TIGValue *tigObject, TIGValue *tigString);
 void TIGObjectRemoveValueFromString(TIGValue *tigObject, TIGValue *tigString);
 
-int TIGObjectCount(TIGValue *tigObject);
+TIGInteger TIGObjectCount(TIGValue *tigObject);
 void TIGObjectRemoveAllValues(TIGValue *tigObject);
 
 TIGValue *TIGObjectFromString(TIGValue *tigString);

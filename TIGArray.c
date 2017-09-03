@@ -117,6 +117,9 @@ TIGValue *TIGArrayCreate(TIGValue *tigArray, TIGBool useStack)
 	{
 #ifdef TIG_DEBUG
 		printf("ERROR Function:TIGArrayCreate() Variable:tigArray Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -146,6 +149,9 @@ TIGValue *TIGArrayCreate(TIGValue *tigArray, TIGBool useStack)
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR Function:TIGArrayCreate() Variable:tigArray->stackString Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			}
 			
@@ -197,6 +203,17 @@ TIGValue *TIGArrayDestroy(TIGValue *tigArray)
 	// If the "tigArray" pointer has already been used free it
 	if (tigArray != NULL)
 	{
+		if (strcmp(tigArray->type, "Array") != 0)
+		{
+#ifdef TIG_DEBUG
+			printf("ERROR Function:TIGArrayDestroy() Variable:tigArray->type Equals:%s Valid:\"Array\"\n", tigArray->type);
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
+#endif
+			return tigArray;
+		}
+
 		TIGValue *theCurrentValue = tigArray->nextLevel;
 		
 		while (theCurrentValue != NULL)
@@ -271,6 +288,9 @@ TIGValue *TIGArrayStackInsertValueAtIndex(TIGValue *tigArray, TIGValue *tigValue
 	{
 #ifdef TIG_DEBUG
 		printf("ERROR Function:TIGArrayStackInsertValueAtIndex() Variable:tigIndex Equals:%d Valid:0 to %d\n", tigIndex, TIGArrayCount(tigArray));
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -283,6 +303,9 @@ TIGValue *TIGArrayStackInsertValueAtIndex(TIGValue *tigArray, TIGValue *tigValue
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR Function:TIGArrayStackInsertValueAtIndex() Variable:tigArray Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return NULL;
 		}
@@ -300,6 +323,10 @@ TIGValue *TIGArrayStackInsertValueAtIndex(TIGValue *tigArray, TIGValue *tigValue
 		{
 			printf("ERROR Function:TIGArrayStackInsertValueAtIndex() Variable:tigValue Equals:NULL\n");
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return tigArray;
 	}
@@ -337,6 +364,9 @@ TIGValue *TIGArrayStackInsertValueAtIndex(TIGValue *tigArray, TIGValue *tigValue
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR1 Function:TIGArrayStackInsertValueAtIndex() Variable:tigNewValue Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 				return tigArray;
 			}
@@ -385,6 +415,9 @@ TIGValue *TIGArrayStackInsertValueAtIndex(TIGValue *tigArray, TIGValue *tigValue
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR2 Function:TIGArrayStackInsertValueAtIndex() Variable:tigNewValue Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 				return tigArray;
 			}
@@ -405,6 +438,9 @@ TIGValue *TIGArrayStackInsertValueAtIndex(TIGValue *tigArray, TIGValue *tigValue
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR3 Function:TIGArrayStackInsertValueAtIndex() Variable:tigNewValue Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return tigArray;
 		}
@@ -439,6 +475,9 @@ TIGValue *TIGArrayStackInsertValueAtIndex(TIGValue *tigArray, TIGValue *tigValue
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR Function:TIGArrayStackInsertValueAtIndex() Variable:index Equals:%d Valid:0 to %d\n", index, TIGArrayCount(tigArray));
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 				return tigArray;
 			}
@@ -470,6 +509,9 @@ TIGValue *TIGArrayValueAtIndex(TIGValue *tigArray, int tigArrayIndex)
 				printf("ERROR Function:TIGArrayValueAtIndex() Variable:tigArrayIndex Equals:%d Valid:0 to %d\n", tigArrayIndex, TIGArrayCount(tigArray) - 1);
 			}
 		}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -536,6 +578,9 @@ TIGValue *TIGArrayValueAtIndex(TIGValue *tigArray, int tigArrayIndex)
 			}
 #ifdef TIG_DEBUG
 			printf("ERROR1 Function:TIGArrayValueAtIndex() Variable:theCurrentValue->thisLevel Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return NULL;
 		}
@@ -547,6 +592,9 @@ TIGValue *TIGArrayValueAtIndex(TIGValue *tigArray, int tigArrayIndex)
 		{
 #ifdef TIG_DEBUG
 			printf("ERROR2 Function:TIGArrayValueAtIndex() Variable:theCurrentValue->thisLevel Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 			return NULL;
 		}
@@ -575,6 +623,9 @@ void TIGArrayRemoveValueAtIndex(TIGValue *tigArray, int tigArrayIndex)
 				printf("ERROR Function:TIGArrayRemoveValueAtIndex() Variable:tigArrayIndex Equals:%d Valid:0 to %d\n", tigArrayIndex, TIGArrayCount(tigArray) - 1);
 			}
 		}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 	}
 	else
@@ -617,6 +668,9 @@ void TIGArrayRemoveValueAtIndex(TIGValue *tigArray, int tigArrayIndex)
 				{
 #ifdef TIG_DEBUG
 					printf("ERROR Function:TIGArrayRemoveValueAtIndex() Variable:theCurrentValue->type Equals:%s\n", theCurrentValue->type);
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 					return;
 				}
@@ -629,6 +683,9 @@ void TIGArrayRemoveValueAtIndex(TIGValue *tigArray, int tigArrayIndex)
 			{
 #ifdef TIG_DEBUG
 				printf("ERROR Function:TIGArrayRemoveValueAtIndex() Variable:theCurrentValue->thisLevel Equals:NULL\n");
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 				return;
 			}
@@ -638,7 +695,7 @@ void TIGArrayRemoveValueAtIndex(TIGValue *tigArray, int tigArrayIndex)
 	}
 }
 
-int TIGArrayCount(TIGValue *tigArray)
+TIGInteger TIGArrayCount(TIGValue *tigArray)
 {
 	if (tigArray == NULL)
 	{
@@ -678,6 +735,9 @@ void TIGArrayRemoveAllValues(TIGValue *tigArray)
 				printf("ERROR Function:TIGArrayRemoveAllValues() Variable:tigArray->thisLevel Equals:NULL\n");
 			}
 		}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 	}
 	else
@@ -738,6 +798,10 @@ TIGValue *TIGArrayReplaceValueAtIndex(TIGValue *tigArray, TIGValue *tigValue, in
 		{
 			printf("ERROR Function:TIGArrayReplaceValueAtIndex() Variable:tigValue Equals:NULL\n");
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -761,6 +825,10 @@ TIGValue *TIGArrayOfObjectStrings(TIGValue *tigObject)
 		{
 			printf("ERROR Function:TIGArrayOfObjectStrings() Variable:tigObject->type Equals:%s Valid:\"Object\"\n", tigObject->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -798,6 +866,9 @@ TIGValue *TIGArrayOfObjectValues(TIGValue *tigObject)
 		{
 			printf("ERROR Function:TIGArrayOfObjectValues() Variable:tigObject->type Equals:%s Valid:\"Object\"\n", tigObject->type);
 		}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -852,6 +923,10 @@ TIGValue *TIGArrayInsertValuesFromArrayAtIndex(TIGValue *tigOldArray, TIGValue *
 		{
 			printf("ERROR Function:TIGArrayInsertValuesFromArrayAtIndex() Variable:tigNewArray->type Equals:%s Valid:\"Array\"\n", tigNewArray->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -862,8 +937,9 @@ TIGValue *TIGArrayInsertValuesFromArrayAtIndex(TIGValue *tigOldArray, TIGValue *
 
 	// total is needed because the array count changes once the for() statement starts
 	int total = TIGArrayCount(tigNewArray) + index;
-
-	for (int i = index; i < total; i++)
+	int i;
+	
+	for (i = index; i < total; i++)
 	{
 		TIGValue *theValue = TIGArrayValueAtIndex(tigNewArray, i - index);
 		tigOldArray = TIGArrayInsertValueAtIndex(tigOldArray, theValue, i);
@@ -902,6 +978,9 @@ TIGValue *TIGArrayFirstValue(TIGValue *tigArray)
 			}
 
 		}
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -929,6 +1008,10 @@ TIGValue *TIGArrayLastValue(TIGValue *tigArray)
 				printf("ERROR Function:TIGArrayLastValue() Variable:TIGArrayCount(tigArray) Equals:0 Valid:1 or more\n");
 			}
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return NULL;
 	}
@@ -958,6 +1041,10 @@ TIGBool TIGArrayEqualsArray(TIGValue *tigArray1, TIGValue *tigArray2)
 		{
 			printf("ERROR Function:TIGArrayEqualsArray() Variable:tigArray2->type Equals:%s Valid:\"Array\"\n", tigArray2->type);
 		}
+
+	#ifdef TIG_DEBUG_ASSERT
+		assert(0);
+	#endif
 #endif
 		return TIGNo;
 	}

@@ -43,7 +43,7 @@ TIGValue *TIGStringInput(TIGValue *tigString, const char *string);
 TIGValue *TIGStringStackInput(TIGValue *tigString, const char *string, TIGBool useStack);
 
 char *TIGStringOutput(TIGValue *tigString);
-int TIGStringLength(TIGValue *tigString);
+TIGInteger TIGStringLength(TIGValue *tigString);
 
 TIGValue *TIGStringInsertStringAtIndex(TIGValue *tigString1, TIGValue *tigString2, int index);
 TIGValue *TIGStringCharacterAtIndex(TIGValue *tigString, int index);
