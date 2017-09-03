@@ -1,6 +1,6 @@
 ![Image of Tiger](images/Tiger.jpg)
 
-# Tiger Engine
+# Tiger Engine v1.1
 Create object oriented C code that can read and write JSON files
 
 ## The top three reasons to use the Tiger Engine
