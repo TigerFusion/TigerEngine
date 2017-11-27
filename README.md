@@ -13,7 +13,6 @@ Create object oriented C code that can read and write JSON files
 
 * It is designed to extend and replace methods that do not work in Apple’s Cocoa API.
 * Anyone using Cocoa in Objective-C or Swift should pick it up quickly.
-* The engine’s source code should compile on any IDE that supports the C99 specification.
 * Makes copies of each object so there are no confusing pointer counts.
 * Uses stacks so you can push and pop objects in batches or not at all.
 * Create an array of variables without specifying how many there will be at compile time.
